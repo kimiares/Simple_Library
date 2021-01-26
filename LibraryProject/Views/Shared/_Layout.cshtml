@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LibraryProject</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    
+</head>
+<body>
+    <header>
+        <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm">
+            <p class="h5 my-0 me-md-auto fw-normal text-light">
+                <a class="p-2 text-light font-weight-bold" style="text-decoration: none" asp-area="" asp-controller="Home" asp-action="Library">
+                    Библиотека
+                    </a>
+                
+                </p>
+            <nav class="my-2 my-md-0 me-md-3">
+                <a class="p-2 text-light" asp-area="" asp-controller="MyLibrary" asp-action="PersonalLibrary">Моя библиотека</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="p-2 text-light" asp-area="" asp-controller="Admin" asp-action="AdminPage">Админка</a>
+                }
+                
+                <a class="p-2 text-light" asp-area="" asp-controller="Account" asp-action="Registration">Регистрация</a>
+                
+            </nav>
+                @if (User.IsInRole("Admin"))
+                {
+                    <b class=" p-2 text-light">Привет одмен, работай!</b>
+                }
+
+                 @if (User.IsInRole("User"))
+                 {
+                    <b class="p-2 text-light">Привет, @User.Identity.Name !</b>
+                }
+            
+            
+            
+             @if(User.IsInRole("Admin") || User.IsInRole("User"))
+            {   
+            <a class="btn btn-outline-danger text-light" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
+            }
+            else
+            {
+            <a class="btn btn-outline-warning text-light" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>         
+            }
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-light bg-dark navbar-fixed-bottom row-fluid ">
+        <div class="footer">
+            &copy; 2020 - Библиотека - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-warning">О проекте</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/js/site.js" asp-append-version="true"></script>*@
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

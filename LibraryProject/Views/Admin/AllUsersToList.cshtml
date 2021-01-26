@@ -1,0 +1,51 @@
+﻿@model IEnumerable<LibraryProject.Models.Users.User>
+@{
+    ViewData["Title"] = "AllUsersToList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Список всех пользователей сайта</h1>
+<table class="table" border="1">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Role
+        </th>
+
+    </tr>
+
+
+
+
+
+    @foreach (var i in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(mitem => i.Id)
+            </th>
+            <th>
+                @Html.DisplayFor(mitem => i.Name)
+            </th>
+            <th>
+                @Html.DisplayFor(mitem => i.Email)
+            </th>
+            <th>
+                @Html.DisplayFor(mitem => i.RoleId)
+            </th>
+
+        </tr>
+
+
+    }
+</table>
+
+

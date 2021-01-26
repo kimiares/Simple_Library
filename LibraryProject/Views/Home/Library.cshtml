@@ -1,0 +1,170 @@
+﻿@using LibraryProject.Models
+
+
+@model IndexViewModel
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<form method="get">
+    <div class="form-group d-flex flex-row bg-light" style="">
+        
+            <div class="col-xs-2" style="margin:5px">
+                <label style="text-align: justify">Поиск книги/автора: </label>
+            </div>
+            <div class="col-xs-4" style="margin:5px">
+                <input name="book" value="@Model.FilterViewModel.SelectedBook" class="form-control" placeholder="Тут" />
+            </div>
+            <div class="col-xs-2" style="margin:5px">
+                <label style="text-align: justify">Категория: </label>
+            </div>
+            <div class="col-xs-2" style="margin:5px">
+                <select name="category" asp-items="Model.FilterViewModel.Categories" class="form-control"></select>
+            </div>
+            <div class="col-xs-2" style="margin:5px"></div>
+                <input type="submit" value="Фильтр" class="btn btn-outline-dark" />
+            </div>
+        
+    </div>
+</form>
+
+
+
+            <table class="table table-borderless" >
+                <thead>
+                    <tr>
+                        <th>
+
+                        </th>
+
+                        <th>
+
+                            <a title="Название книги" asp-action="Library" 
+                               asp-route-sortOrder="@(Model.SortViewModel.BookNameSort)"
+                               asp-route-name="@(Model.FilterViewModel.SelectedBook)"
+                               asp-route-category="@(Model.FilterViewModel.SelectedCategory)"
+                               class="text-dark">
+                                <strong>Название книги</strong>
+                            </a>
+                        </th>
+                        <th>
+
+                            <a title="Автор" asp-action="Library" 
+                               asp-route-sortOrder="@(Model.SortViewModel.AuthorSort)"
+                               asp-route-name="@(Model.FilterViewModel.SelectedBook)"
+                               asp-route-category="@(Model.FilterViewModel.SelectedCategory)"
+                               class="text-dark">
+                            <strong>Автор</strong>
+                            </a>
+                        </th>
+                        <th>
+
+                            <strong class="text-dark">Описание</strong>
+                        </th>
+                        <th>
+
+                            <a title="Категория" asp-action="Library" 
+                             asp-route-sortOrder="@(Model.SortViewModel.CategorySort)"
+                               asp-route-name="@(Model.FilterViewModel.SelectedBook)"
+                               asp-route-category="@(Model.FilterViewModel.SelectedCategory)"
+                               class="text-dark">
+                                <strong>Категория</strong>
+                            </a>
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Books)
+                    {
+                        <tr>
+
+                            <td>
+                                <img src="~/Files/Images/@(item.imageFileName)" 
+                                style="width:100px; height:100px;" />
+
+                            </td>
+                            <td>
+
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Author)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                            </td>
+                            <td>
+                                
+                                
+                                    <a asp-action="AddToLibrary" asp-controller="MyLibrary" 
+                                asp-route-id="@item.Id" >                                
+                                Добавить в "Мою библиотеку"</a>
+                                
+
+                                
+                            </td>
+
+
+
+                            <td>
+                                <a asp-action="FileOut" asp-controller="Admin" 
+                                asp-route-id="@item.Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="grey" class="bi bi-download" viewBox="0 0 16 16">
+                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                                </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+   
+
+
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Library"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Library"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+<style>
+    .glyphicon {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
+    .glyphicon-chevron-right:before {
+        content: "\f054";
+    }
+
+    .glyphicon-chevron-left:before {
+        content: "\f053";
+    }
+</style>
+

@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Страница администратора</h1>
+
+
+
+<div class="list-group">
+  <button type="button" class="list-group-item list-group-item-action btn btn-secondary">@Html.ActionLink("Библиотека", "ToList")</button>
+  <button type="button" class="list-group-item list-group-item-action">@Html.ActionLink("Добавить книгу", "CreateBook")</button>
+  <button type="button" class="list-group-item list-group-item-action">@Html.ActionLink("Все категории", "CategoriesToList")</button>
+  <button type="button" class="list-group-item list-group-item-action">@Html.ActionLink("Добавить категорию", "CreateCategory")</button>
+  <button type="button" class="list-group-item list-group-item-action">@Html.ActionLink("Все пользователи", "AllUsersToList")</button>
+</div>
+
+
+

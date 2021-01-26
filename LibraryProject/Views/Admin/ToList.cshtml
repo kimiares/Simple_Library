@@ -1,0 +1,63 @@
+﻿@model IEnumerable<LibraryProject.Models.Books.Book>
+
+@{
+    ViewData["Title"] = "ToList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ToList</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<p>
+    
+    
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+
+                <a asp-action="ToList" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Name)</a>
+            </th>
+            <th>
+
+                <a asp-action="ToList" asp-route-sortOrder="@ViewData["AuthorSortParm"]">@Html.DisplayNameFor(model => model.Author)</a>
+            </th>
+            
+            <th>
+                Category
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryId)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                    <a asp-action="FileOut" asp-route-id="@item.Id">Download</a>
+
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p><a asp-action="AdminPage">Back to Administraion menu</a></p>

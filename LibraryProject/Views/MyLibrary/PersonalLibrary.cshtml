@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Моя библиотека";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using LibraryProject.Models.ViewModels
+
+@model PersonalLibraryViewModel
+
+
+<div class="container">
+    
+    
+    <table class="table table-bordered table-dark">
+        <thead>
+            <tr>
+                <th>
+                    Название книги
+                </th>
+                <th>
+                    Автор
+                </th>
+            </tr>
+        </thead>
+    <tbody>
+        
+            @foreach (var i in Model._personalLibrary.myLibraries)
+            {
+                <tr>
+                    <td>@i.book.Name </td>
+                    <td>@i.book.Author </td>
+                    <td>
+                    <a asp-action="FileOut" asp-controller="Admin" asp-route-id="@i.book.Id">Загрузить</a>
+                    </td>
+                </tr>
+            }
+        
+    </tbody>
+    </table>
+
+
+
+</div>
+
